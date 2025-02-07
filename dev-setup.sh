@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
 ###############################################################################
@@ -21,8 +21,12 @@ echo "Using package manager: $PM"
 # Install common packages using the appropriate package manager
 ###############################################################################
 if [ "$PM" = "apt" ]; then
+    echo "[apt] Enabling universe repository (if not already enabled)..."
+    sudo add-apt-repository -y universe
     echo "[apt] Updating package lists..."
     sudo apt-get update
+    # Optional: upgrade your system packages (uncomment the next line if desired)
+    # sudo apt-get upgrade -y
     echo "[apt] Installing packages..."
     sudo apt-get install -y \
          git \
@@ -83,7 +87,7 @@ elif [ "$PM" = "brew" ]; then
     echo "[brew] Installing Docker (via cask)..."
     brew install --cask docker
 
-    # For build tools on macOS, ensure Xcode command line tools are installed.
+    # For build tools on macOS, ensure Xcode Command Line Tools are installed.
     if ! xcode-select -p &>/dev/null; then
         echo "Xcode Command Line Tools not found. Installing…"
         xcode-select --install
