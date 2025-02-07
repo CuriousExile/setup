@@ -28,6 +28,7 @@ if [ "$PM" = "apt" ]; then
     # Optional: upgrade your system packages (uncomment the next line if desired)
     # sudo apt-get upgrade -y
     echo "[apt] Installing packages..."
+    # Note: We removed awscli from the apt install list since it’s not available.
     sudo apt-get install -y \
          git \
          neovim \
@@ -35,7 +36,6 @@ if [ "$PM" = "apt" ]; then
          golang \
          build-essential \
          tmux \
-         awscli \
          fzf \
          xclip \
          stow \
@@ -46,6 +46,18 @@ if [ "$PM" = "apt" ]; then
          default-jdk \
          docker.io \
          zoxide
+
+    # Install AWS CLI v2 via the official installer if it's not already installed.
+    if ! command -v aws &>/dev/null; then
+        echo "[apt] Installing AWS CLI v2 via official installer..."
+        curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+        unzip awscliv2.zip
+        sudo ./aws/install
+        rm -rf awscliv2.zip aws
+    else
+        echo "[apt] AWS CLI is already installed."
+    fi
+
 elif [ "$PM" = "pacman" ]; then
     echo "[pacman] Updating and installing packages..."
     sudo pacman -Syu --noconfirm
