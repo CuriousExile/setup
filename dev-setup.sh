@@ -45,7 +45,8 @@ if [ "$PM" = "apt" ]; then
          ripgrep \
          default-jdk \
          docker.io \
-         zoxide
+         zoxide \
+         eva
 
     # Install AWS CLI v2 via the official installer if it's not already installed.
     if ! command -v aws &>/dev/null; then
@@ -77,7 +78,8 @@ elif [ "$PM" = "pacman" ]; then
          jq \
          ripgrep \
          docker \
-         zoxide
+         zoxide \
+         eva
 elif [ "$PM" = "brew" ]; then
     echo "[brew] Updating Homebrew..."
     brew update
@@ -95,7 +97,8 @@ elif [ "$PM" = "brew" ]; then
          bat \
          jq \
          ripgrep \
-         zoxide
+         zoxide \
+         eva
     echo "[brew] Installing Docker (via cask)..."
     brew install --cask docker
 
